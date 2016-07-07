@@ -574,7 +574,8 @@ class sieve {
   function sieve_sendscript($scriptname, $script) {
     if($this->loggedin==false)
         return false;
-    $this->script=stripslashes($script);
+    // Escape backslashes in the script (it is treated as a string).
+    $this->script = str_replace( '\\', '\\\\', $script );
     $len=strlen($this->script);
     
     $this->lastcmd = 'PUTSCRIPT "'.$scriptname.'" {'.$len.'+}'."\r\n".$this->script."\r\n";
